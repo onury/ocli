@@ -8,7 +8,7 @@
     "main": "index.js",
     "bin": {
         "o": "cli/o",
-        "olib": "cli/o"
+        "ocli": "cli/o"
     },
     "files": [
         "LICENSE",
