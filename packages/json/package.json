@@ -1,0 +1,42 @@
+{
+    "name": "@ocli/json",
+    "version": "1.0.0",
+    "description": "JSON command and module for ocli.",
+    "repository": "https://github.com/onury/ocli/tree/master/packages/json",
+    "author": "Onur Yildirim <onur@cutepilot.com>",
+    "license": "MIT",
+    "main": "index.js",
+    "files": [
+        "LICENSE",
+        "lib",
+        "index.js"
+    ],
+    "keywords": [
+        "json",
+        "minimize",
+        "minify",
+        "compress",
+        "uglify",
+        "normalize",
+        "strip-comments",
+        "task",
+        "build",
+        "dev",
+        "cli",
+        "command",
+        "command-line",
+        "cmd",
+        "run",
+        "do"
+    ],
+    "engines": {
+        "node": ">= 8"
+    },
+    "peerDependencies": {
+        "@ocli/core": "^1.0.0"
+    },
+    "devDependencies": {
+        "@ocli/core": "^1.0.0"
+    },
+    "dependencies": {}
+}

@@ -1,0 +1,15 @@
+{
+    "options": {
+        "cwd": "src",
+        "overwrite": false,
+        "parents": true,
+        "dest": "./tmp"
+    },
+    "paths": [
+        ".ebextensions/**",
+        ["start.js", "cluster.js"],
+        ["config/**", "!config/generated/**"],
+        { "src": "config/generated/**", "dest": "../dist/release/config/", "parents": false },
+        { "src": "xxonur3/**" }
+    ]
+}

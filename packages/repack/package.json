@@ -1,0 +1,37 @@
+{
+    "name": "@ocli/repack",
+    "version": "1.0.0",
+    "description": "Repack command/module for ocli",
+    "repository": "https://github.com/onury/ocli/tree/master/packages/repack",
+    "author": "Onur Yildirim <onur@cutepilot.com>",
+    "license": "MIT",
+    "main": "index.js",
+    "files": [
+        "LICENSE",
+        "lib",
+        "index.js"
+    ],
+    "keywords": [
+        "repack",
+        "package",
+        "pkg",
+        "install",
+        "modules",
+        "dependencies",
+        "task",
+        "build",
+        "dev",
+        "cli",
+        "command",
+        "command-line",
+        "cmd",
+        "run",
+        "do"
+    ],
+    "peerDependencies": {
+        "@ocli/core": "^1.0.0"
+    },
+    "devDependencies": {
+        "@ocli/core": "^1.0.0"
+    }
+}

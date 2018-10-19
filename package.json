@@ -1,0 +1,83 @@
+{
+    "name": "ocli",
+    "private": true,
+    "author": "Onur Yildirim <onur@cutepilot.com>",
+    "license": "MIT",
+    "scripts": {
+        "bootstrap": "lerna bootstrap --hoist",
+        "lint": "eslint packages",
+        "pretest": "npm run lint",
+        "test-sub": "lerna run test -- --runInBand",
+        "test": "jest --testPathPattern='packages/.+/test/.+$' --verbose --no-cache --runInBand",
+        "test:core": "jest --testPathPattern='packages/core/test/.+$' --verbose --no-cache --runInBand",
+        "test:copy": "jest --testPathPattern='packages/copy/test/.+$' --verbose --no-cache --runInBand",
+        "test:json": "jest --testPathPattern='packages/json/test/.+$' --verbose --no-cache --runInBand",
+        "test:html": "jest --testPathPattern='packages/html/test/.+$' --verbose --no-cache --runInBand",
+        "test:repack": "jest --testPathPattern='packages/repack/test/.+$' --verbose --no-cache --runInBand",
+        "cover": "npm run test -- --coverage",
+        "cover:core": "npm run test:core -- --coverage",
+        "cover:copy": "npm run test:copy -- --coverage",
+        "cover:json": "npm run test:json -- --coverage",
+        "cover:html": "npm run test:html -- --coverage",
+        "cover:repack": "npm run test:repack -- --coverage",
+        "watch": "npm run cover -- --watch",
+        "watch:core": "npm run cover:core -- --watch",
+        "watch:copy": "npm run cover:copy -- --watch",
+        "watch:json": "npm run cover:json -- --watch",
+        "watch:html": "npm run cover:html -- --watch",
+        "watch:repack": "npm run cover:repack -- --watch",
+        "release": "lerna publish --skip-git -- --concurrency 1",
+        "dep-core-to-copy": "lerna add @ocli/core --scope=@ocli/copy --dev"
+    },
+    "engines": {
+        "node": ">= 8"
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "collectCoverageFrom": [
+            "packages/**/*.js",
+            "!packages/test_/**/*"
+        ],
+        "testRegex": "packages/[^/]+/test/.+(test|spec)\\.js$",
+        "testPathIgnorePatterns": [
+            "/backup/",
+            "/coverage/",
+            "/node_modules/",
+            "/test/tmp/",
+            "/test/config/",
+            "/test/data/",
+            "/test/helpers/",
+            "<rootDir>/packages/test_/",
+            "<rootDir>/build/"
+        ],
+        "transformIgnorePatterns": [
+            "/node_modules/",
+            "/test/(helpers|tmp|config|data)/",
+            "/test_/"
+        ],
+        "coverageDirectory": "<rootDir>/coverage",
+        "coveragePathIgnorePatterns": [
+            "/backup/",
+            "/coverage/",
+            "<rootDir>/packages/test_/",
+            "/node_modules/",
+            "/test/(helpers|tmp|config|data)/"
+        ],
+        "modulePathIgnorePatterns": [
+            "/backup/",
+            "/coverage/",
+            "/test/helpers/",
+            "/test/tmp/",
+            "/test/config/",
+            "/test/data/",
+            "/test_/",
+            "<rootDir>/build/"
+        ]
+    },
+    "devDependencies": {
+        "babel-eslint": "^10.0.1",
+        "eslint": "^5.7.0",
+        "jest": "^23.5.0",
+        "lerna": "^3.4.3"
+    }
+}

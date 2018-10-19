@@ -1,0 +1,44 @@
+{
+    "name": "@ocli/html",
+    "version": "1.0.0",
+    "description": "HTML task for ocli",
+    "repository": "https://github.com/onury/ocli/tree/master/packages/html",
+    "author": "Onur Yildirim <onur@cutepilot.com>",
+    "license": "MIT",
+    "main": "index.js",
+    "files": [
+        "LICENSE",
+        "lib",
+        "index.js"
+    ],
+    "keywords": [
+        "html",
+        "minimize",
+        "minify",
+        "compress",
+        "uglify",
+        "normalize",
+        "strip-comments",
+        "task",
+        "build",
+        "dev",
+        "cli",
+        "command",
+        "command-line",
+        "cmd",
+        "run",
+        "do"
+    ],
+    "engines": {
+        "node": ">= 8"
+    },
+    "peerDependencies": {
+        "@ocli/core": "^1.0.0"
+    },
+    "dependencies": {
+        "html-minifier": "^3.5.20"
+    },
+    "devDependencies": {
+        "@ocli/core": "^1.0.0"
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "options": {
+        "overwrite": false,
+        "parents": true,
+        "dest": "./packages/html/test/tmp"
+        // cwd is project root, since the command is executed from the root.
+    },
+    "paths": [
+        "packages/test_/test/data2/*.html",
+        { "src": ["packages/**/*.html", "!packages/**/node_modules/**", "!packages/html"], "dest": "./packages/html/test/tmp/different-dest" },
+        { "src": "./test/data/test1.html", "dest": "../html/test/tmp/different-cwd", "cwd": "./packages/html" }
+    ]
+}

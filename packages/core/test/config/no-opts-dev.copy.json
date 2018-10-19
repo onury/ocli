@@ -1,0 +1,9 @@
+{
+    "paths": [
+        ".ebextensions/**",
+        ["start.js", "cluster.js"],
+        ["config/**", "!config/generated/**"],
+        { "src": "config/generated/**", "dest": "../dist/release/config/", "parents": false },
+        { "src": "xxonur3/**" }
+    ]
+}

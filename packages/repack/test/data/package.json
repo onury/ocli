@@ -1,0 +1,34 @@
+{
+    "name": "repack-test",
+    "author": "Onur Yildirim <onur@cutepilot.com>",
+    "license": "MIT",
+    "scripts": {
+
+    },
+    "engines": {
+        "node": ">= 8"
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "collectCoverageFrom": [
+            "packages/**/*.js",
+            "!packages/test_/**/*"
+        ],
+        "testRegex": "packages/[^/]+/test/.+(test|spec)\\.js$"
+    },
+    "dependencies": {
+        "notation": "latest"
+    },
+    "devDependencies": {
+        "perfy": "latest"
+    },
+    "peerDependencies": {
+        "fs-extra": "^7.0.0"
+    },
+    "optionalDependencies": {
+        "tasktimer": "latest"
+    },
+    "bundledDependencies": [
+        "accesscontrol"
+    ]
+}

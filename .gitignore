@@ -1,0 +1,11 @@
+backup
+coverage
+node_modules
+npm-debug.log
+.DS_Store
+TODO.md
+NOTES.md
+try.js
+try-*.js
+tmp/**
+tmp2

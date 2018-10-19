@@ -1,0 +1,15 @@
+{
+    "options": {
+        "overwrite": false,
+        "parents": true,
+        "removeComments": true,
+        "dest": "./packages/json/test/tmp"
+        // cwd is project root, since the command is executed from the root.
+    },
+    "paths": [
+        "lerna.json",
+        { "src": "./package.json" },
+        { "src": ["packages/core/**/*.json", "!packages/core/node_modules/**"], "dest": "./packages/json/test/tmp/different-dest" },
+        { "src": "./package.json", "dest": "../json/test/tmp/different-cwd", "cwd": "./packages/core" }
+    ]
+}

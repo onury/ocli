@@ -1,0 +1,18 @@
+{
+    "src": "packages/repack/test/data/package.json",
+    "dest": "packages/repack/test/tmp",
+    "options": {
+        "install": true,
+        "indent": 3,
+        "private": false,
+        "name": "repack-config-test",
+        "description": "some desc",
+        "removeDevDeps": true,
+        "remove": ["scripts, license", "jest.testEnvironment"],
+        "set": ["license:BSD", "some.string:'true'"],
+        "sort": true, // redundant when smart = true
+        "smart": false,
+        "danger": false
+        // cwd is project root, since the command is executed from the root.
+    }
+}

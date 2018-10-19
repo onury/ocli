@@ -1,0 +1,10 @@
+{
+    "options": {
+        "overwrite": false,
+        "dest": "./packages/json/test/tmp2"
+        // cwd is project root, since the command is executed from the root.
+    },
+    "paths": [
+        "lerna.json"
+    ]
+}

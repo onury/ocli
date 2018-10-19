@@ -1,0 +1,4 @@
+{
+    "src": "packages/repack/test/data/package.json",
+    "dest": "packages/repack/test/tmp"
+}
