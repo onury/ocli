@@ -273,7 +273,7 @@ class OCLI {
             // no batch/task support, this is a direct fn.
             this._.fn = fn.bind(this);
         }
-        // set the command meta to be registered to @devlib/core
+        // set the command meta to be registered to @ocli/core
         this._.cmd = cmdMeta;
         // now we wrap the yargs command handler function to let ocli instance
         // know that the command/fn is being executed from command-line.
