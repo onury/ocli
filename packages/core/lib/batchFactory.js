@@ -32,32 +32,60 @@ const path = require('path');
 const Stats = require('./Stats');
 const utils = require('./utils');
 
+// vars
+const { safe } = utils;
+
 module.exports = (ocli, fn, batchProcessSettings) => {
 
-    const { log } = ocli;
+    const { name, log } = ocli;
+    const s = log.styles;
+    const logPrefix = s.text('[') + s.subtitle(name) + s.text(']');
     const {
         defaultOptions,
+        // verb to be used in logs
         verb = 'Processed',
-        useGlobs = true
+        // whether to use/allow globs in paths
+        useGlobs = true,
+        // whether files are being processed
+        files = true,
+        // whether directories are being processed
+        directories = true
     } = batchProcessSettings;
 
+    // preparing words for logs
+    let wItem = 'item';
+    let wItems = 'items';
+    if (files && !directories) {
+        wItem = 'file';
+        wItems = 'files';
+    } else if (!files && directories) {
+        wItem = 'directory';
+        wItems = 'directories';
+    }
+    const plural = num => num === 1 ? wItem : wItems;
+
+    // prepare options and dest
     function prepare(options, dest) {
         const opts = {
             ...defaultOptions,
             ...(options || {})
         };
-        if (dest) dest = path.resolve(opts.cwd, dest);
+        if (typeof dest === 'string') dest = path.resolve(opts.cwd, dest);
         return { dest, opts };
     }
 
-    function getPaths(source, opts) {
+    async function getPaths(source, opts) {
         if (useGlobs) {
             const globOpts = {
-                cwd: opts.cwd,
+                cwd: opts.cwd || process.cwd(),
                 dot: opts.dot,
+                onlyFiles: files,
+                onlyDirectories: directories,
                 followSymlinkedDirectories: opts.dereference
             };
-            return ocli.getGlobPaths(source, globOpts);
+            const [err, paths] = await safe(ocli.getGlobPaths(source, globOpts));
+            if (err && !opts.force) throw err;
+            return paths || [];
         }
         return Promise.resolve(utils.ensureSrcArray(source));
     }
@@ -73,7 +101,9 @@ module.exports = (ocli, fn, batchProcessSettings) => {
 
     // we wrap the original seed fn here (to clean away some complexity.)
     function fnSeed(src, dest, opts) {
-        if (arity === 2) return fn(src, opts);
+        if (arity === 2) {
+            return fn(src, opts);
+        }
         return fn(src, dest, opts);
     }
 
@@ -90,17 +120,17 @@ module.exports = (ocli, fn, batchProcessSettings) => {
         if (!_taskBatchNo && stats.total > 1) log.title(`[${ocli.name}]`);
 
         await utils.pmap(paths, async file => {
-            /* istanbul ignore else */
-            if (await fnSeed(file, dest, opts)) {
-                stats.update();
-                if (stats.total > 1) log.data(`${verb} file ${stats.completed} of ${stats.total}: "${file}" to "${destination}"`);
-            }
+            await fnSeed(file, dest, opts);
+            stats.update();
+            if (stats.total > 1) log.data(`${verb} ${wItem} ${stats.completed} of ${stats.total}: "${file}" to "${destination}"`);
         });
 
         stats.end();
         if (!_taskBatchNo) {
             log.empty();
-            log.ok(`${verb} ${log.styles.accent(stats.completed)} file(s) in ${stats.elapsedTime} secs.`);
+            // log the item if only 1 is processed.
+            const item1 = stats.completed === 1 ? ` ('${paths[0]}')` : '';
+            log.ok(`${logPrefix} ${verb} ${s.accent(stats.completed)} ${plural(stats.completed)}${item1} in ${stats.elapsedTime} secs.`);
         }
         return stats.toObject();
     }
@@ -108,7 +138,7 @@ module.exports = (ocli, fn, batchProcessSettings) => {
     async function fnTask(configFile) {
         let stats = new Stats();
 
-        log.title(`[${ocli.name} Task]`);
+        log.title(`[${name} Task]`);
         log.info(`Reading task config from "${configFile}"...`);
 
         const { options: configOpts, paths } = await ocli.getBatchConfig(configFile, defaultOptions);
@@ -126,7 +156,9 @@ module.exports = (ocli, fn, batchProcessSettings) => {
         });
         stats.end();
         log.empty();
-        log.ok(`${verb} ${log.styles.accent(stats.completed)} file(s) in ${stats.elapsedTime} secs.`);
+        // log the item if only 1 is processed.
+        const item1 = stats.completed === 1 ? ` ('${paths[0]}')` : '';
+        log.ok(`${logPrefix} ${verb} ${s.accent(stats.completed)} ${plural(stats.completed)}${item1} in ${stats.elapsedTime} secs.`);
         return stats.toObject();
     }
 
@@ -136,9 +168,18 @@ module.exports = (ocli, fn, batchProcessSettings) => {
         }
         let stats;
         try {
-            stats = args.length > 1
-                ? await fnBatch(...args)
-                : await fnTask(...args);
+            if (args.length === 1) {
+                stats = await fnTask(...args);
+            } else if (args.length === 2) {
+                stats = typeof args[1] === 'string'
+                    ? await fnBatch(args[0], args[1]) // src, dest
+                    : await fnBatch(args[0], null, args[1]); // src, null, opts
+            } else {
+                stats = await fnBatch(...args);
+            }
+            // stats = args.length === 1
+            //     ? await fnTask(...args)
+            //     : await fnBatch(...args);
         } catch (err) {
             ocli.fail(err); // re-throws
         }
