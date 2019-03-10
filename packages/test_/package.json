@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@ocli/test_",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "description": "Not published. Just to test ocli.",
     "repository": "https://github.com/onury/ocli/tree/master/packages/_test",
     "author": "Onur Yildirim <onur@cutepilot.com>",
@@ -14,6 +14,6 @@
         "node": ">= 8"
     },
     "dependencies": {
-        "@ocli/core": "^0.5.0"
+        "@ocli/core": "^0.5.1"
     }
 }

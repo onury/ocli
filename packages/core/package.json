@@ -1,6 +1,6 @@
 {
     "name": "@ocli/core",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "description": "CLI tools for most used operations and development workflows.",
     "repository": "https://github.com/onury/ocli/tree/master/packages/core",
     "author": "Onur Yildirim <onur@cutepilot.com>",
