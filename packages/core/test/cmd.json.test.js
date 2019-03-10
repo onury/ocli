@@ -2,13 +2,12 @@
 
 // core modules
 const path = require('path');
-// const globby = require('globby');
 
 // own modules
-const { cmd } = require('../index');
+const { cmd } = require('../../core/cli/commands/json');
 const tmp = require('../../../helpers/tmp')(__dirname, 'tmp2');
 
-describe('@ocli/json/cmd', () => {
+describe('json cmd', () => {
 
     beforeEach(async () => {
         // Resets the module registry - the cache of all required modules. This
@@ -27,7 +26,7 @@ describe('@ocli/json/cmd', () => {
 
         const argv = {
             src: './package.json',
-            dest: './packages/json/test/tmp2',
+            dest: './packages/core/test/tmp2',
             parents: true
         };
         const stats = await cmd.handler(argv);

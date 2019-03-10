@@ -5,13 +5,13 @@ const path = require('path');
 const fs = require('fs-extra');
 
 // own modules
-const { fn: json } = require('../index');
-const { utils } = require('@ocli/core');
+const { fn: json } = require('../../core/cli/commands/json');
+const utils = require('../lib/utils');
 const tmp = require('../../../helpers/tmp')(__dirname, 'tmp');
 
 const { jsonc } = utils;
 
-describe('@ocli/json/fn', () => {
+describe('json fn', () => {
 
     const dest = './tmp';
 
@@ -30,8 +30,8 @@ describe('@ocli/json/fn', () => {
     test('json(one), no options', async () => {
         expect.assertions(5);
 
-        const src = 'packages/json/test/data/test1.json';
-        const destination = 'packages/json/test/tmp';
+        const src = 'packages/core/test/data/test1.json';
+        const destination = 'packages/core/test/tmp';
         const opts = {};
         const stats = await json(src, destination, opts);
         expect(stats.completed).toEqual(1);
@@ -104,7 +104,7 @@ describe('@ocli/json/fn', () => {
     test('json(one), non-existing src', async () => {
         expect.assertions(1);
 
-        await expect(json('no.file', 'packages/json/test/tmp', {})).rejects.toThrow();
+        await expect(json('no.file', 'packages/core/test/tmp', {})).rejects.toThrow();
     });
 
     test('json(globs), src out of cwd', async () => {
@@ -124,7 +124,7 @@ describe('@ocli/json/fn', () => {
         expect(await tmp.exists('package-lock.json')).toEqual(true);
         // ../ is outside of cwd, we shouldn't have any dirs created
         expect(await tmp.exists('/lib')).toEqual(false);
-        expect((await jsonc.read(tmp.pathTo('package.json'))).name).toEqual('@ocli/json');
+        expect((await jsonc.read(tmp.pathTo('package.json'))).name).toEqual('@ocli/core');
     });
 
     test('json(config)', async () => {
