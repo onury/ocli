@@ -8,8 +8,7 @@
     "license": "MIT",
     "main": "index.js",
     "scripts": {
-        "o": "NODE_ENV=test node ./node_modules/@ocli/core/cli/o",
-        "copy": "node ./node_modules/@ocli/copy"
+        "o": "NODE_ENV=test node ./node_modules/@ocli/core/cli/o"
     },
     "engines": {
         "node": ">= 8"

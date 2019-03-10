@@ -2,7 +2,6 @@
 
 // core modules
 const path = require('path');
-// const globby = require('globby');
 
 // own modules
 const { cmd } = require('../index');

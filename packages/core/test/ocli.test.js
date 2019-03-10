@@ -10,7 +10,7 @@ describe('@ocli/core/lib/OCLI', () => {
     const ocli = new OCLI('TEST');
 
     test('basic', () => {
-        expect(ocli.name).toEqual('Test');
+        expect(ocli.name).toEqual('test');
         expect(ocli.pkgName).toEqual('@ocli/test');
         expect(ocli.repoLink).toMatch(/packages\/test$/);
         expect(ocli.docsLink).toMatch(/ocli\/test$/);
@@ -19,9 +19,9 @@ describe('@ocli/core/lib/OCLI', () => {
         expect(ocli.log.enabled).toEqual(false);
         expect(ocli.log.verbose).toEqual(false);
 
-        expect(ocli.prefix()).toEqual('[Test]');
-        expect(ocli.prefix('message')).toEqual('[Test] message');
-        expect(ocli.prefix('[Test] message')).toEqual('[Test] message');
+        expect(ocli.prefix()).toEqual('[test]');
+        expect(ocli.prefix('message')).toEqual('[test] message');
+        expect(ocli.prefix('[test] message')).toEqual('[test] message');
     });
 
     test('#define(), #fn, #cmd', async () => {

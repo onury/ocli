@@ -19,7 +19,7 @@ describe('@ocli/core/cli', () => {
     }
 
     test('core commands', async () => {
-        expect.assertions(9);
+        expect.assertions(7);
 
         expect((await cli('-h')).stdout).toMatch('https://github.com/onury');
         expect((await cli('--help')).stdout).toMatch('https://github.com/onury');
@@ -27,8 +27,6 @@ describe('@ocli/core/cli', () => {
         expect((await cli('--version')).stdout).toMatch(pkg.version);
         const info = (await cli('info')).stdout;
         expect(info).toMatch('@ocli/core');
-        expect(info).toMatch('@ocli/copy');
-        expect(info).toMatch('@ocli/json');
         expect(info).toMatch('@ocli/html');
         expect(info).toMatch('@ocli/repack');
     });

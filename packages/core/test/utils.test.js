@@ -392,10 +392,11 @@ describe('@ocli/core/lib/utils', () => {
     });
 
     test('special/glob utils', () => {
-        expect(utils.hasGlob('')).toEqual(false);
-        expect(utils.hasGlob('path/to/a')).toEqual(false);
-        expect(utils.hasGlob('*')).toEqual(true);
-        expect(utils.hasGlob(['*', '!a'])).toEqual(true);
+        // below is disabled due to removal of globby in favour of fast-glob
+        // expect(utils.hasGlob('')).toEqual(false);
+        // expect(utils.hasGlob('path/to/a')).toEqual(false);
+        // expect(utils.hasGlob('*')).toEqual(true);
+        // expect(utils.hasGlob(['*', '!a'])).toEqual(true);
 
         expect(utils.ensureSrcArray(['*'])).toEqual(['*']);
         expect(utils.ensureSrcArray('*')).toEqual(['*']);
