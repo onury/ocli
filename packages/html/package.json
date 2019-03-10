@@ -1,6 +1,6 @@
 {
     "name": "@ocli/html",
-    "version": "1.0.0",
+    "version": "0.5.0",
     "description": "HTML task for ocli",
     "repository": "https://github.com/onury/ocli/tree/master/packages/html",
     "author": "Onur Yildirim <onur@cutepilot.com>",
@@ -39,6 +39,6 @@
         "html-minifier": "^3.5.21"
     },
     "devDependencies": {
-        "@ocli/core": "^1.0.0"
+        "@ocli/core": "^0.5.0"
     }
 }
