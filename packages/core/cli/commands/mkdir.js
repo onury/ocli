@@ -1,8 +1,5 @@
 /* eslint no-console:0 */
 
-// core modules
-// const path = require('path');
-
 // dep modules
 const fs = require('fs-extra');
 
@@ -14,7 +11,6 @@ const utils = require('../../lib/utils');
 
 // vars
 const ocli = new OCLI('MKDIR');
-// const { log } = ocli;
 const s = new Styles(true);
 
 function fnSeed(dirPath, options) {
@@ -27,7 +23,7 @@ function fnSeed(dirPath, options) {
         }
         mode = m;
     }
-    return fs.mkdir(dirPath, { mode });
+    return fs.ensureDir(dirPath, { mode }); // mkdirp
 }
 
 const describe = 'Ensure/create directory structure.';
@@ -51,7 +47,7 @@ const cmdOptionsMeta = {
 /* istanbul ignore next */
 function builder(yargs) {
     return yargs
-        .usage(`\n${s.accent('do')} ${s.accent('mkdir')} ${s.white('<dest>')}\n\n${describe}`)
+        .usage(`\n${s.accent('o')} ${s.accent('mkdir')} ${s.white('<dest>')}\n\n${describe}`)
         .help('h', `Show ${pkg.name} help`).alias('h', 'help')
         .version('v', `Output ${pkg.name} version`, pkg.version)
         .alias('v', 'version')
@@ -63,11 +59,11 @@ function builder(yargs) {
         // .group('config', s.subtitle('Run a JSON task from config:'))
         .options(cmdOptionsMeta)
         .example(
-            `${s.hilight('do mkdir')} ${s.white('path/to/non-existing/dirs')}`,
+            `${s.hilight('o mkdir')} ${s.white('path/to/non-existing/dirs')}`,
             s.faded('Create directory structure')
         )
         .example(
-            `${s.hilight('do mkdir')} ${s.white('path/to/dir')} ${s.opt('-m')} ${s.white('0o2775')}`,
+            `${s.hilight('o mkdir')} ${s.white('path/to/dir')} ${s.opt('-m')} ${s.white('0o2775')}`,
             s.faded('Create directory with mode 0o2775')
         );
 }
@@ -85,9 +81,12 @@ function handler(argv) {
 module.exports = ocli.define(fnSeed, {
     batchProcess: {
         defaultOptions: {},
-        verb: 'Created'
+        verb: 'Created',
+        useGlobs: false,
+        files: false,
+        directories: true
     },
-    command: ['mkdir [path]', 'md'],
+    command: ['mkdir <path>', 'md'],
     describe,
     builder,
     handler
