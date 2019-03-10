@@ -4,7 +4,7 @@
 // const path = require('path');
 
 // dep modules
-const globby = require('globby');
+const glob = require('fast-glob');
 const jsonc = require('jsonc');
 
 // own modules
@@ -39,11 +39,7 @@ const defaultGlobOptions = {
     nocase: false, // default: false
     case: true, // default: true
     matchBase: false, // default: false
-    transform: null,
-    // globby options
-    // https://github.com/sindresorhus/globby#options
-    expandDirectories: true, // default: true
-    gitignore: false // default: false
+    transform: null
 };
 
 /**
@@ -59,7 +55,7 @@ class OCLI {
      */
     constructor(libName, options) {
         this._ = {
-            name: utils.titleCase((libName || '').toLowerCase()),
+            name: (libName || '').toLowerCase(),
             fn: null,
             cmd: {},
             cmdCall: false,
@@ -177,22 +173,23 @@ class OCLI {
      *  @param {Object} [options]  Glob options.
      *  @param {Boolean} [failOnEmpty=true]  Whether to throw an error if no
      *  files are returned from given patterns.
-     *  @returns {Array}  A list of resolved file paths.
+     *  @returns {Promise<Array>}  Promise of a list of resolved file paths.
      */
-    async getGlobPaths(patterns, options, failOnEmpty = true) {
+    async getGlobPaths(patterns, options, failOnEmpty = true) { // eslint-disable-line class-methods-use-this
         const [ignore, str] = jsonc.safe.stringify(patterns);
-        const errMsg = `No paths returned from: ${str || ''}`;
+        const errMsg = `No usable or existing paths found: ${str || ''}`;
         if (!patterns) {
-            if (failOnEmpty) return this.fail(new Error(errMsg));
+            if (failOnEmpty) throw new Error(errMsg);
             return [];
         }
         const opts = {
             ...defaultGlobOptions,
             ...(options || {})
         };
-        const paths = await globby(utils.ensureSrcArray(patterns), opts);
+
+        const paths = await glob(utils.ensureSrcArray(patterns), opts);
         if (!paths || paths.length === 0) {
-            if (failOnEmpty) return this.fail(new Error(errMsg));
+            if (failOnEmpty) throw new Error(errMsg);
             return [];
         }
         return paths;
