@@ -110,7 +110,7 @@ describe('@ocli/repack/fn', () => {
     test('repack(), out of cwd', async () => {
         expect.assertions(3);
 
-        const src = '../../test_/package.json';
+        const src = '../../core/package.json';
         const dest = 'tmp';
         const opts = {
             cwd: __dirname,
