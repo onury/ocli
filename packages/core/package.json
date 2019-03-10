@@ -16,6 +16,9 @@
         "lib",
         "index.js"
     ],
+    "publishConfig": {
+        "access": "public"
+    },
     "keywords": [
         "core",
         "task",
