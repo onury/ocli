@@ -8,7 +8,6 @@
     "main": "index.js",
     "files": [
         "LICENSE",
-        "lib",
         "index.js"
     ],
     "keywords": [
@@ -41,5 +40,5 @@
     "devDependencies": {
         "@ocli/core": "^0.5.2"
     },
-    "gitHead": "f5cfac6b400e69d94740d6ddfc9d7b9b09561ed1"
+    "gitHead": "a3b0448cfd83ddb7a64d826bf555b53890e0352f"
 }
