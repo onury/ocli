@@ -352,7 +352,7 @@ describe('@ocli/core/lib/utils', () => {
 
     test('size utils', async () => {
         expect.assertions(13);
-        const filePath = 'packages/test_/package.json';
+        const filePath = 'packages/html/package.json';
         expect(utils.formatSize(0)).toEqual('0 bytes');
         expect(utils.formatSize(NaN)).toEqual('0 bytes');
         expect(utils.formatSize(null)).toEqual('0 bytes');

@@ -93,7 +93,7 @@ describe('@ocli/html/fn', () => {
     test('html(one), out of cwd', async () => {
         expect.assertions(3);
 
-        const src = '../../test_/test/data2/test2.html';
+        const src = '../../core/test/data2/test2.html';
         const destination = 'tmp';
         const opts = {
             cwd: __dirname,
@@ -138,7 +138,7 @@ describe('@ocli/html/fn', () => {
         const configFile = path.join(__dirname, 'config', 'fn.html.json');
         const stats = await html(configFile);
         expect(stats.percent).toEqual(1);
-        expect(await tmp.exists('different-dest/packages/test_/test/data2/test2.html')).toEqual(true);
+        expect(await tmp.exists('different-dest/packages/core/test/data2/test2.html')).toEqual(true);
         expect(await tmp.exists('different-cwd/test/data/test1.html')).toEqual(true);
         expect(await tmp.exists('packages')).toEqual(true);
     });

@@ -40,5 +40,6 @@
     },
     "devDependencies": {
         "@ocli/core": "^0.5.1"
-    }
+    },
+    "gitHead": "f5cfac6b400e69d94740d6ddfc9d7b9b09561ed1"
 }

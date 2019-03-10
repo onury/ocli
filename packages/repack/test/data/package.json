@@ -11,8 +11,7 @@
     "jest": {
         "testEnvironment": "node",
         "collectCoverageFrom": [
-            "packages/**/*.js",
-            "!packages/test_/**/*"
+            "packages/**/*.js"
         ],
         "testRegex": "packages/[^/]+/test/.+(test|spec)\\.js$"
     },

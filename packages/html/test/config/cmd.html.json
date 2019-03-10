@@ -5,6 +5,6 @@
         // cwd is project root, since the command is executed from the root.
     },
     "paths": [
-        "packages/test_/test/data2/test2.html"
+        "packages/core/test/data2/test2.html"
     ]
 }
