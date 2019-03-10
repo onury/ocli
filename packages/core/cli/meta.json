@@ -1,13 +1,5 @@
 [
     {
-        "name": "@ocli/copy",
-        "desc": "Copy files using globs."
-    },
-    {
-        "name": "@ocli/json",
-        "desc": "Uglify/beautify JSON files."
-    },
-    {
         "name": "@ocli/html",
         "desc": "Minimize HTML files."
     },
