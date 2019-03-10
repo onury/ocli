@@ -29,8 +29,7 @@
     "jest": {
         "testEnvironment": "node",
         "collectCoverageFrom": [
-            "packages/**/*.js",
-            "!packages/test_/**/*"
+            "packages/**/*.js"
         ],
         "testRegex": "packages/[^/]+/test/.+(test|spec)\\.js$",
         "testPathIgnorePatterns": [
@@ -41,19 +40,16 @@
             "/test/config/",
             "/test/data/",
             "/test/helpers/",
-            "<rootDir>/packages/test_/",
             "<rootDir>/build/"
         ],
         "transformIgnorePatterns": [
             "/node_modules/",
-            "/test/(helpers|tmp|config|data)/",
-            "/test_/"
+            "/test/(helpers|tmp|config|data)/"
         ],
         "coverageDirectory": "<rootDir>/coverage",
         "coveragePathIgnorePatterns": [
             "/backup/",
             "/coverage/",
-            "<rootDir>/packages/test_/",
             "/node_modules/",
             "/test/(helpers|tmp|config|data)/"
         ],
@@ -64,7 +60,6 @@
             "/test/tmp/",
             "/test/config/",
             "/test/data/",
-            "/test_/",
             "<rootDir>/build/"
         ]
     },
