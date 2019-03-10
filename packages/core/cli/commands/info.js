@@ -82,7 +82,7 @@ module.exports = modulesMeta => {
 
     return {
         command: ['info'],
-        describe: 'Output info about installed "o" modules.',
+        describe: 'Output info about installed ocli modules.',
         handler() { // (argv)
             const list = getList(modulesMeta);
 
