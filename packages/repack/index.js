@@ -273,7 +273,7 @@ const cmdOptionsMeta = {
 /* istanbul ignore next */
 function builder(yargs) {
     return yargs
-        .usage(`\n${s.accent('do')} ${s.accent('repack')} ${s.white('[src]')} ${s.white('[dest]')}\n\n${describe}`)
+        .usage(`\n${s.accent('o')} ${s.accent('repack')} ${s.white('[src]')} ${s.white('[dest]')}\n\n${describe}`)
         .help('h', `Show ${pkg.name} help`).alias('h', 'help')
         .version('v', `Output ${pkg.name} version`, pkg.version)
         .alias('v', 'version')
@@ -290,11 +290,11 @@ function builder(yargs) {
         .group('config', s.subtitle('Run a Repack task from config:'))
         .options(cmdOptionsMeta)
         .example(
-            `${s.hilight('do repack')} ${s.white('package.json dest/')} ${s.opt('-i -P --rdd')}`,
+            `${s.hilight('o repack')} ${s.white('package.json dest/')} ${s.opt('-i -P --rdd')}`,
             s.faded('Remove devDependencies, mark as private, write modified package.json to dest and finally run npm-install')
         )
         .example(
-            `${s.hilight('do repack')} ${s.opt('-c')} ${s.white('path/to/repack.config.json')}`,
+            `${s.hilight('o repack')} ${s.opt('-c')} ${s.white('path/to/repack.config.json')}`,
             s.faded('Repack from a JSON config file')
         );
 }

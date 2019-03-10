@@ -15,9 +15,9 @@ CLI tools for most used operations and development workflows.
 | `o mkdir [path]`        | Ensure/create directory structure. (*) | `md`  | `@ocli/core`   |
 | `o remove [path]`       | Remove path(s) recursively. (*)        | `rm`  | `@ocli/core`   |
 | `o clean [path]`        | Clean/empty directories. (*)           | `cl`  | `@ocli/core`   |
-| `o move [src] [dest]`   | Move files and directories. (*)        | `mv`  | `@ocli/core`   |
-| `o concat [src] [dest]` | Concatenate/merge files into one. (*)  | `cc`  | `@ocli/core`   |
-| `o copy [src] [dest]`   | Copy files and directories. (*)        | `cp`  | `@ocli/copy`   |
-| `o json [src] [dest]`   | Uglify/beautify JSON file(s). (*)      |       | `@ocli/json`   |
+| `o copy [src] [dest]`   | Copy files and directories. (*)        | `cp`  | `@ocli/core`   |
+| `o json [src] [dest]`   | Uglify/beautify JSON file(s). (*)      |       | `@ocli/core`   |
 | `o html [src] [dest]`   | Process, minify HTML file(s). (*)      |       | `@ocli/html`   |
 | `o repack [src] [dest]` | Repack an npm package.json.            |       | `@ocli/repack` |
+
+- Globs not allowed for `clean` command.

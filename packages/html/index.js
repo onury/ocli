@@ -62,9 +62,9 @@ const defaultOptions = {
     css: false,
     js: false,
     fragments: [/<%[\s\S]*?%>/, /<\?[\s\S]*?\?>/],
-    parents: false, // fs-extra
+    parents: false, // boolean (for all parent dirs) or number for limiting levels
     overwrite: false, // fs-extra
-    errorOnExists: true, // fs-extra
+    errorOnExists: true,
     dereference: false, // fs-extra but also globs option as followSymlinkedDirectories
     cwd: process.cwd(), // fs-x and globs option
     dot: false // globs option
@@ -104,7 +104,10 @@ async function htmlOne(src, dest, options) {
             // dir when parents = true. so we'll check for "../" (or "..\\" on
             // windows) and never write outside of dest dir.
             const isOutsideOfCwd = p.includes('..');
-            const parents = isOutsideOfCwd ? '' : p;
+            let parents = isOutsideOfCwd ? '' : p;
+            if (parents && typeof options.parents === 'number' && options.parents > 0) {
+                parents = utils.getParents(parents, options.parents, path.sep);
+            }
             dest = path.join(dest, parents);
         }
     } else {
@@ -216,7 +219,7 @@ const cmdOptionsMeta = {
 /* istanbul ignore next */
 function builder(yargs) {
     return yargs
-        .usage(`\n${s.accent('do')} ${s.accent('html')} ${s.white('[src]')} ${s.white('[dest]')}\n\n${describe}`)
+        .usage(`\n${s.accent('o')} ${s.accent('html')} ${s.white('[src]')} ${s.white('[dest]')}\n\n${describe}`)
         .help('h', `Show ${pkg.name} help`).alias('h', 'help')
         .version('v', `Output ${pkg.name} version`, pkg.version)
         .alias('v', 'version')
@@ -234,11 +237,11 @@ function builder(yargs) {
         // see https://github.com/kangax/html-minifier
         .options(cmdOptionsMeta)
         .example(
-            `${s.hilight('do html')} ${s.white('src/**/*.html dest/')} ${s.opt('-m -H -p')}`,
+            `${s.hilight('o html')} ${s.white('src/**/*.html dest/')} ${s.opt('-m -H -p')}`,
             s.faded('Parse (with HTML5 specs) & minify HTML files, write to dest with parent dirs')
         )
         .example(
-            `${s.hilight('do html')} ${s.opt('-c')} ${s.white('path/to/html.config.json')}`,
+            `${s.hilight('o html')} ${s.opt('-c')} ${s.white('path/to/html.config.json')}`,
             s.faded('Process HTML files from a JSON config file')
         );
 }
@@ -266,7 +269,10 @@ function handler(argv) {
 module.exports = ocli.define(htmlOne, {
     batchProcess: {
         defaultOptions,
-        verb: 'Wrote'
+        verb: 'Wrote',
+        useGlobs: true,
+        files: true,
+        directories: false
     },
     command: ['html [src] [dest]'],
     describe,
