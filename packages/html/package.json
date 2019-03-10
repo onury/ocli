@@ -10,6 +10,9 @@
         "LICENSE",
         "index.js"
     ],
+    "publishConfig": {
+        "access": "public"
+    },
     "keywords": [
         "html",
         "minimize",
@@ -40,5 +43,5 @@
     "devDependencies": {
         "@ocli/core": "^0.5.4"
     },
-    "gitHead": "e8177efcb13366d0ee9d1a769cc0c7f93f027be1"
+    "gitHead": "ac87267d38646c5ec92de24b7d7166d56cb0b7cd"
 }

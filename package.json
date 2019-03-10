@@ -23,9 +23,6 @@
         "release": "lerna publish --no-git-reset -- --concurrency 1",
         "dep-core-to-html": "lerna add @ocli/core --scope=@ocli/html --dev"
     },
-    "publishConfig": {
-        "access": "public"
-    },
     "engines": {
         "node": ">= 8"
     },
