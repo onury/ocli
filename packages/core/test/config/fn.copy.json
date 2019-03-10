@@ -1,0 +1,16 @@
+{
+    "options": {
+        // "quiet": true,
+        "overwrite": false,
+        "parents": true,
+        "dest": "./packages/core/test/tmp"
+        // cwd is project root, since the command is executed from the root.
+    },
+    "paths": [
+        "lerna.json",
+        ["packages/core/cli/**/*", "!packages/core/cli/**/in*.js"],
+        { "src": "./package.json" },
+        { "src": "./lerna.json", "dest": "./packages/core/test/different-dest" },
+        { "src": "./package.json", "dest": "../core/test/tmp/different-cwd", "cwd": "./packages/core" }
+    ]
+}
