@@ -12,8 +12,8 @@ const Styles = require('../lib/Styles');
 const s = new Styles(true);
 const strings = require('./strings')(s);
 
-const repoLink = 'https://github.com/onury/o';
-const docsLink = 'https://onury.io/o';
+const repoLink = 'https://github.com/onury/ocli';
+const docsLink = 'https://onury.io/ocli';
 const batchMark = ' (*)';
 
 registerCommands(yargs, { batchMark });
@@ -23,8 +23,8 @@ const usage = `\n${s.accent('o')} ${s.white.bold('[command]')} ${s.opt('[options
     + `Commands that support batch/task operations (with globs), are marked with${batchMark}.\n`
     + `See command help for detailed usage.`;
 
-const info = `${s.subtitle('o')} ${s.hint('repo')} @ ${s.link(repoLink)}\n`
-    + `${s.subtitle('o')} ${s.hint('docs')} @ ${s.link(docsLink)}`
+const info = `${s.subtitle('ocli')} ${s.hint('repo')} @ ${s.link(repoLink)}\n`
+    + `${s.subtitle('ocli')} ${s.hint('docs')} @ ${s.link(docsLink)}`
     + s.newline;
 
 yargs
@@ -52,13 +52,10 @@ yargs
         `${s.hilight('o <commmand>')} ${s.opt('-h')}`,
         s.faded('Show help for a specific command')
     )
-    // .example(`${s.hilight('do [commmand]')} ${s.white('path/to/dir')} ${s.opt('-m')}`)
+    // .example(`${s.hilight('o [commmand]')} ${s.white('path/to/dir')} ${s.opt('-m')}`)
     .epilog(info)
     .showHelpOnFail(false, s.warn('Run with --help for available options.'))
     .argv;
 
 // console.log(yargs.argv);
-
-// if (yargs.argv.force) {
-//     yargs.exitProcess(false);
-// }
+// if (yargs.argv.force) yargs.exitProcess(false);
