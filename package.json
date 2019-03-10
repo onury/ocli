@@ -10,24 +10,18 @@
         "test-sub": "lerna run test -- --runInBand",
         "test": "jest --testPathPattern='packages/.+/test/.+$' --verbose --no-cache --runInBand",
         "test:core": "jest --testPathPattern='packages/core/test/.+$' --verbose --no-cache --runInBand",
-        "test:copy": "jest --testPathPattern='packages/copy/test/.+$' --verbose --no-cache --runInBand",
-        "test:json": "jest --testPathPattern='packages/json/test/.+$' --verbose --no-cache --runInBand",
         "test:html": "jest --testPathPattern='packages/html/test/.+$' --verbose --no-cache --runInBand",
         "test:repack": "jest --testPathPattern='packages/repack/test/.+$' --verbose --no-cache --runInBand",
         "cover": "npm run test -- --coverage",
         "cover:core": "npm run test:core -- --coverage",
-        "cover:copy": "npm run test:copy -- --coverage",
-        "cover:json": "npm run test:json -- --coverage",
         "cover:html": "npm run test:html -- --coverage",
         "cover:repack": "npm run test:repack -- --coverage",
         "watch": "npm run cover -- --watch",
         "watch:core": "npm run cover:core -- --watch",
-        "watch:copy": "npm run cover:copy -- --watch",
-        "watch:json": "npm run cover:json -- --watch",
         "watch:html": "npm run cover:html -- --watch",
         "watch:repack": "npm run cover:repack -- --watch",
         "release": "lerna publish --skip-git -- --concurrency 1",
-        "dep-core-to-copy": "lerna add @ocli/core --scope=@ocli/copy --dev"
+        "dep-core-to-html": "lerna add @ocli/core --scope=@ocli/html --dev"
     },
     "engines": {
         "node": ">= 8"
@@ -76,8 +70,9 @@
     },
     "devDependencies": {
         "babel-eslint": "^10.0.1",
-        "eslint": "^5.7.0",
+        "eslint": "^5.12.0",
         "jest": "^23.5.0",
-        "lerna": "^3.4.3"
-    }
+        "lerna": "^3.10.5"
+    },
+    "dependencies": {}
 }
