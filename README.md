@@ -5,7 +5,7 @@ _( Work in progress... )_
 CLI tools for most used operations and development workflows.
 
 - `@ocli/core` is the only required (core) package that provides the basic functionality for everyday-use command line operations. 
-- Install other sub-packages indicated below if you need the command/functionality. 
+- Install other (peer) packages indicated below if you need the command/functionality. 
 - Commands that support batch/task operations (with globs), are marked with (*).
 
 ### Commands
