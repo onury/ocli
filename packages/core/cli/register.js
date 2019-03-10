@@ -19,20 +19,6 @@ module.exports = (yargs, regOpts) => {
     // operations.
     const { batchMark } = regOpts;
 
-    // in development/test, @ocli peer dependencies are locally installed by
-    // linking: `cd <monorepo-root> && lerna add @ocli/core
-    // --scope=@ocli/<moduleName> --dev` but this creates a symlink and when
-    // core (this) CLI is run from shell, and it checks for other installed
-    // @ocli modules; it cannot find them via e.g.
-    // require('@ocli/<moduleName>') bec. the symlinked + shell-run process
-    // looks in its own dependency tree.
-
-    // so we mark the process for ocli development/test by running CLI tests as:
-    // NODE_ENV=test node cli/index.js
-    // to indicate that it should register modules locally. See updateMeta() below.
-
-    const testMode = process.env.NODE_ENV === 'test';
-
     function setEpilogue(ocli) {
         const epilogue = `${s.subtitle(ocli.pkgName)} ${s.hint('repo')} @ ${s.link(ocli.repoLink)}\n`
             + `${s.subtitle(ocli.pkgName)} ${s.hint(' docs')} @ ${s.link(ocli.docsLink)}`
@@ -44,21 +30,37 @@ module.exports = (yargs, regOpts) => {
         };
     }
 
+    // in development/test, @ocli peer dependencies are locally installed by
+    // linking: `cd <monorepo-root> && lerna add @ocli/core
+    // --scope=@ocli/<moduleName> --dev` but this creates a symlink and when
+    // core (this) CLI is run from shell, and it checks for other installed
+    // @ocli modules; it cannot find them via e.g.
+    // require('@ocli/<moduleName>') bec. the symlinked + shell-run process
+    // looks in its own dependency tree. See updateMeta() below.
+
     function updateMeta(meta) {
-        let m, pkg;
-        if (testMode) {
-            // in development/tests, the module path is under packages/ directory.
-            // e.g. "@ocli/<moduleName>" should be required from "../../<moduleName>"
+        let m;
+        let modulePath = meta.name;
+
+        // in production we require the module as "@ocli/<moduleName>"
+        m = utils.requireSafe(modulePath);
+
+        // in development/tests, the module path is under packages/ directory.
+        // e.g. "@ocli/<moduleName>" should be required from "../../<moduleName>"
+
+        // also; if for example core module (and others) are symlinked
+        // sub-modules are not detected/registered. in this case, we'll go up
+        // the directory to find sub-modules installed.
+        if (!m) {
+            // e.g. .../core/cli (__dirname) to ../copy
             const n = meta.name.split('/');
-            const modulePath = path.join('..', '..', n[n.length - 1]);
+            modulePath = path.join('..', '..', n[n.length - 1]);
             m = utils.requireSafe(modulePath);
-            pkg = utils.requireSafe(path.join(modulePath, 'package.json'));
-        } else {
-            // in production we require the module as "@ocli/<moduleName>"
-            m = utils.requireSafe(meta.name);
-            // and package.json as "@ocli/<moduleName>/package.json"
-            pkg = utils.getPackageInfo(meta.name);
         }
+
+        // and package.json as "@ocli/<moduleName>/package.json"
+        const pkg = utils.getPackageInfo(modulePath);
+        if (pkg && pkg.name !== meta.name) m = null;
 
         if (m && pkg) {
             setEpilogue(m);
@@ -81,23 +83,21 @@ module.exports = (yargs, regOpts) => {
         return yargs.command(m);
     }
 
+    registerCoreCommand(require('./commands/copy'));
     registerCoreCommand(require('./commands/mkdir'));
-    yargs.command({
-        command: ['remove [path]', 'rm'],
-        describe: 'Remove path(s) recursively. (*)'
-    });
-    yargs.command({
-        command: ['clean [path]', 'cl'],
-        describe: 'Clean/empty directories. (*)'
-    });
-    yargs.command({
-        command: ['move [src] [dest]', 'mv'],
-        describe: 'Move files and directories. (*)'
-    });
-    yargs.command({
-        command: ['concat [src] [dest]', 'cc'],
-        describe: 'Concatenate/merge files into one. (*)'
-    });
+    registerCoreCommand(require('./commands/clean'));
+    registerCoreCommand(require('./commands/remove'));
+    registerCoreCommand(require('./commands/json'));
+
+    // TODO:
+    // yargs.command({
+    //     command: ['move [src] [dest]', 'mv'],
+    //     describe: 'Move files and directories. (*)'
+    // });
+    // yargs.command({
+    //     command: ['concat [src] [dest]', 'cc'],
+    //     describe: 'Concatenate/merge files into one. (*)'
+    // });
 
     // register installed @ocli module commands
 
