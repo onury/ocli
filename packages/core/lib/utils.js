@@ -7,7 +7,6 @@ const { exec } = require('child_process');
 // dep modules
 const fs = require('fs-extra');
 const jsonc = require('jsonc');
-const globby = require('globby');
 const gzipSize = require('gzip-size');
 
 // vars
@@ -234,11 +233,6 @@ const utils = {
         }, []);
     },
 
-    // http://stackoverflow.com/a/6969486/112731
-    // _escapeRegExp(str) {
-    //     return str.replace(/[-[]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-    // }
-
     splitFirst(str, delim) {
         // since we'll also use delim as regexp for .replace(), it shouldn't have a
         // g (global) flag.
@@ -250,6 +244,21 @@ const utils = {
         if (sp.length === 1) return [first];
         const rest = str.slice(first.length).replace(re, '');
         return [first, rest];
+    },
+
+    // http://stackoverflow.com/a/6969486/112731
+    escapeRegExp(str) {
+        return str.replace(/[-[]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+    },
+
+    // e.g. getParents('a/b/c', 2) » 'b/c'
+    getParents(str, levels, delim = '/') {
+        // first remove lead and trailing slashes
+        const d = utils.escapeRegExp(delim);
+        const re = new RegExp(`(^${d}|${d}$)`, 'g');
+        const s = (str || '').replace(re, '').split(delim);
+        // slice from right and re-join
+        return s.slice(-levels).join(delim);
     },
 
     // --------------------------
@@ -591,10 +600,6 @@ const utils = {
         if (!item[key]) item[key] = [];
         if (typeof item[key] === 'string') item[key] = item[key].split(srcSep);
         return item;
-    },
-
-    hasGlob(value) {
-        return globby.hasMagic(value);
     },
 
     ensureSrcArray(src) {
