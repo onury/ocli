@@ -159,7 +159,7 @@ class OCLI {
     }
 
     prefix(str) {
-        const pre = `[${this.name}]`;
+        const pre = `[o ${this.name}]`;
         if (!str) return pre;
         if (str.toLowerCase().slice(0, pre.length) !== pre.toLowerCase()) {
             return pre + ' ' + str;

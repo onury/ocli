@@ -19,9 +19,9 @@ describe('@ocli/core/lib/OCLI', () => {
         expect(ocli.log.enabled).toEqual(false);
         expect(ocli.log.verbose).toEqual(false);
 
-        expect(ocli.prefix()).toEqual('[test]');
-        expect(ocli.prefix('message')).toEqual('[test] message');
-        expect(ocli.prefix('[test] message')).toEqual('[test] message');
+        expect(ocli.prefix()).toEqual('[o test]');
+        expect(ocli.prefix('message')).toEqual('[o test] message');
+        expect(ocli.prefix('[o test] message')).toEqual('[o test] message');
     });
 
     test('#define(), #fn, #cmd', async () => {
