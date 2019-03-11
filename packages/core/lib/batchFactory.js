@@ -39,7 +39,7 @@ module.exports = (ocli, fn, batchProcessSettings) => {
 
     const { name, log } = ocli;
     const s = log.styles;
-    const logPrefix = s.text('[') + s.subtitle(name) + s.text(']');
+    const logPrefix = s.text('[') + s.hilight('o') + ' ' + s.subtitle(name) + s.text(']');
     const {
         defaultOptions,
         // verb to be used in logs
@@ -79,8 +79,8 @@ module.exports = (ocli, fn, batchProcessSettings) => {
             const globOpts = {
                 cwd: opts.cwd || process.cwd(),
                 dot: opts.dot,
-                onlyFiles: files,
-                onlyDirectories: directories,
+                onlyFiles: files && !directories,
+                onlyDirectories: !files && directories,
                 followSymlinkedDirectories: opts.dereference
             };
             const [err, paths] = await safe(ocli.getGlobPaths(source, globOpts));
@@ -138,7 +138,7 @@ module.exports = (ocli, fn, batchProcessSettings) => {
     async function fnTask(configFile) {
         let stats = new Stats();
 
-        log.title(`[${name} Task]`);
+        log.title(`[o ${name} Task]`);
         log.info(`Reading task config from "${configFile}"...`);
 
         const { options: configOpts, paths } = await ocli.getBatchConfig(configFile, defaultOptions);
