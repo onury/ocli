@@ -31,7 +31,7 @@
         "do"
     ],
     "peerDependencies": {
-        "@ocli/core": "^1.0.0"
+        "@ocli/core": "^0.5.7"
     },
     "devDependencies": {
         "@ocli/core": "^0.5.7"
