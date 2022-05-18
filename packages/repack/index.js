@@ -1,4 +1,4 @@
-/* eslint no-sync:0, no-console:0, no-param-reassign:0, max-statements:0 */
+/* eslint no-sync:0, no-console:0, no-param-reassign:0, max-statements:0, complexity:0 */
 
 // core modules
 const path = require('path');
@@ -74,6 +74,14 @@ function has(destDir, itemName) {
     return fs.pathExists(path.join(destDir, itemName));
 }
 
+function cleanStdErr(str) {
+    str = str.replace(/[^.]+package-lock\.json[^.]*\./gi, '')
+        .replace(/\s*You should commit this file\.?\s*/gi, '')
+        .replace(/[\s\r\n]/g, '')
+        .trim();
+    return utils.removeSurWhitespace(str).trim();
+}
+
 async function nonSafeDest(destDir) {
     return await has(destDir, 'package.json')
         || await has(destDir, 'package-lock.json')
@@ -147,10 +155,10 @@ async function repack(src, dest, options) {
 
     if (opts.install) {
         const result = await utils.exec(`cd "${destDir}" && npm install`);
-        const stdout = (result.stdout || /* istanbul ignore next */ '').toLowerCase();
-        /* istanbul ignore if */
-        if (stdout.indexOf('added') === -1) { // or we could check if package-lock.json is created
-            throw new Error('npm install failed.');
+        const stdout = utils.removeSurWhitespace(result.stdout || /* istanbul ignore next */ '');
+        if (stdout) console.info(utils.indentNewLines(stdout));
+        if (cleanStdErr(result.stderr)) {
+            throw new Error('npm install failed: ' + utils.indentNewLines(utils.removeSurWhitespace(result.stderr)));
         }
     }
 
