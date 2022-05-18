@@ -111,6 +111,15 @@ const utils = {
         return str;
     },
 
+    removeSurWhitespace(str) {
+        return str.replace(/(^[\s\r\n]+|[\s\r\n]+$)/g, '');
+    },
+
+    indentNewLines(str, indent) {
+        indent = indent || '  ';
+        return str.replace(/(^|[\r\n]+)/gm, indent + '$&');
+    },
+
     // --------------------------
     // PROMISE/FN UTILS
     // --------------------------
