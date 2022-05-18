@@ -1,6 +1,6 @@
 {
     "name": "@ocli/repack",
-    "version": "0.5.8",
+    "version": "0.6.0",
     "description": "Repack command/module for ocli",
     "repository": "https://github.com/onury/ocli/tree/master/packages/repack",
     "author": "Onur Yildirim <onur@cutepilot.com>",
@@ -34,7 +34,7 @@
         "@ocli/core": "^0.5.7"
     },
     "devDependencies": {
-        "@ocli/core": "^0.5.8"
+        "@ocli/core": "^0.6.0"
     },
     "gitHead": "7ec4e7f7d08807943982c052f4f9d4db3b6c0def"
 }
