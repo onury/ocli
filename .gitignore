@@ -1,4 +1,4 @@
-backup
+_backup/
 coverage
 node_modules
 npm-debug.log
