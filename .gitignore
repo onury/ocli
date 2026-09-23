@@ -9,3 +9,6 @@ try.js
 try-*.js
 tmp/**
 tmp2
+
+# ---- Author's working notes: planning, specs, working agreements ----
+_notes/
