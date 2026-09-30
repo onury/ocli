@@ -10,7 +10,7 @@ try-*.js
 tmp/**
 tmp2
 
-# ---- Author's working notes: planning, specs, working agreements ----
+# ---- Working notes ----
 _notes/
 
 # The latest test reports (coverage, mutation)
